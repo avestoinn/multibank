@@ -8,11 +8,12 @@ from pydantic.fields import Field
 
 
 class Bank(Model):
+    """Bank entity"""
     name: str
 
 
 class Account(Model):
-    """Bank account"""
+    """Bank account entity"""
 
     id: AccountID = Field(default_factory=AccountID)
     type: AccountType = AccountType.DEBIT

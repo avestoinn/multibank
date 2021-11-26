@@ -75,3 +75,16 @@ class IMemoryStorage(ABC):
             return False
         self.__storage.pop(key)
         return True
+
+
+class RepositoryManager:
+    """Менеджер, объединяющий все repo"""
+    bank: IBankRepository
+    account: IAccountRepository
+    card: ICardRepository
+
+    def __init__(self, bank_r: IBankRepository, account_r: IAccountRepository,
+                 card_r: ICardRepository):
+        self.bank = bank_r
+        self.account = account_r
+        self.card = card_r

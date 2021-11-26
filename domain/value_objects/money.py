@@ -1,5 +1,5 @@
 import typing
-from domain.exceptions import MoneyError, CardError
+from domain.exceptions import MoneyError
 
 
 class Currency(str):
