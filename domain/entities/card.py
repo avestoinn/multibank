@@ -11,8 +11,8 @@ from domain.value_objects.money import Money
 
 class Card(Model):
     expiration_date: ExpirationDate = ExpirationDate.generate_three_years()
-    pan: PAN = PAN.generate()
-    cv2: CV2 = CV2.generate()
+    pan: PAN = Field(default_factory=PAN.generate)
+    cv2: CV2 = Field(default_factory=CV2.generate)
     account: Account
 
     @classmethod
