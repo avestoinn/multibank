@@ -6,6 +6,9 @@ from domain.value_objects.card import PAN
 
 
 class MemoryCardRepository(ICardRepository, IMemoryStorage):
+    def remove_card_by_pan(self, pan: PAN):
+        return self._remove(pan)
+
     def get_card_by_pan(self, pan: PAN):
         return self._get(pan)
 

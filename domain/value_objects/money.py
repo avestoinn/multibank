@@ -35,6 +35,7 @@ class Money:
     def __check_is_money(other):
         if not isinstance(other, Money):
             raise MoneyError.NotMoneyType()
+        other.__value = round(other.__value, 2)  # Округляем до сотых, копейки, дирамы
 
     def __check_currencies(self, other):
         if not self.__currency == other.__currency:

@@ -9,6 +9,9 @@ class AccountID:
     __LENGTH = 20
     __SEQUENCE = string.digits
 
+    def __hash__(self):
+        return hash(self.__value)
+
     def __repr__(self):
         return self.__value
 

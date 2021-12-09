@@ -6,6 +6,8 @@ from . import Model
 
 from pydantic.fields import Field
 
+from ..exceptions import AccountError
+
 
 class Bank(Model):
     """Bank entity"""
@@ -23,3 +25,11 @@ class Account(Model):
     @property
     def currency(self) -> Currency:
         return self.balance.currency
+
+    def deposit(self, money: Money):
+        self.balance += money
+
+    def withdraw(self, money: Money):
+        if money > self.balance:
+            raise AccountError.NotEnoughBalance()
+        self.balance -= money

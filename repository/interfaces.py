@@ -1,7 +1,7 @@
 import typing
 from abc import ABC, abstractmethod
 from domain.entities.card import Card
-from domain.entities.bank import Bank
+from domain.entities.bank import Bank, Account
 
 from domain.value_objects.card import PAN
 from domain.value_objects.bank import AccountID
@@ -19,6 +19,9 @@ class ICardRepository(ABC):
     @abstractmethod
     def insert_card(self, card: Card): pass
 
+    @abstractmethod
+    def remove_card_by_pan(self, pan: PAN): pass
+
 
 class IBankRepository(ABC):
     """Repository interface for banks"""
@@ -27,13 +30,13 @@ class IBankRepository(ABC):
     def get_banks(self): pass
 
     @abstractmethod
-    def get_bank_by_id(self): pass
+    def get_bank_by_name(self, name: str): pass
 
     @abstractmethod
-    def get_bank_by_name(self): pass
+    def remove_bank_by_name(self, name: str): pass
 
     @abstractmethod
-    def remove_bank_by_id(self, bank: Bank): pass
+    def insert_bank(self, bank: Bank): pass
 
 
 class IAccountRepository(ABC):
@@ -46,7 +49,10 @@ class IAccountRepository(ABC):
     def get_account_by_id(self, account_id: AccountID): pass
 
     @abstractmethod
-    def remove_account_by_id(self): pass
+    def remove_account_by_id(self, account_id: AccountID): pass
+
+    @abstractmethod
+    def insert_account(self, account: Account): pass
 
 
 class IMemoryStorage(ABC):
@@ -59,18 +65,18 @@ class IMemoryStorage(ABC):
     def _get_all(self):
         return [i for i in self.__storage.values()]
 
-    def _get(self, key: str) -> typing.Union[typing.Any, None]:
-        if key not in self.__storage.keys():
+    def _get(self, key: typing.Any) -> typing.Union[typing.Any, None]:
+        if key.__str__() not in self.__storage.keys():
             return None
         return self.__storage[key]
 
-    def _put(self, key: str, value) -> bool:
+    def _put(self, key: typing.Any, value) -> bool:
         if key not in self.__storage.keys():
             self.__storage[key] = value
             return True
         return False
 
-    def _remove(self, key: str = None) -> bool:
+    def _remove(self, key: typing.Any = None) -> bool:
         if key not in self.__storage.keys():
             return False
         self.__storage.pop(key)

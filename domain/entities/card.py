@@ -6,6 +6,7 @@ from domain.value_objects.card import PAN, CV2, ExpirationDate
 from domain.entities.bank import Account
 from domain.entities import Model
 from domain.exceptions import CardError
+from domain.value_objects.money import Money
 
 
 class Card(Model):
@@ -27,6 +28,12 @@ class Card(Model):
     @property
     def currency(self):
         return self.account.currency
+
+    def deposit(self, money: Money):
+        self.account.deposit(money)
+
+    def withdraw(self, money: Money):
+        self.account.withdraw(money)
 
     def __eq__(self, other):
         if not isinstance(other, Card):
