@@ -8,6 +8,9 @@ class Currency(str):
     def __init__(self, code: str):
         self.__code = code
 
+    def __str__(self):
+        return f"{self.__code}"
+
     def __repr__(self):
         return f"(Currency, {self.__code})"
 
@@ -48,7 +51,7 @@ class Money:
         self.__currency = currency
 
     def __str__(self):
-        return f"{self.__value} {self.__currency}"
+        return f"{self.__value} {self.__currency.__str__()}"
 
     def __repr__(self):
         return f"{self.__value} {self.__currency}"
