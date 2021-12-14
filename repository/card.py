@@ -16,5 +16,7 @@ class MemoryCardRepository(ICardRepository, IMemoryStorage):
         return self._get_all()
 
     def insert_card(self, card: Card):
-        if not self._get(card.pan):
-            self._put(card.pan, card)
+        return self._put(card.pan, card)
+
+    def save(self, card: Card):
+        return self._put(card.pan, card, force=True)

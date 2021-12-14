@@ -3,7 +3,7 @@ from pydantic.fields import Field
 import datetime
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True, frozen=True)
 class Command:
     """Command base (abstract) class to be inherited by children"""
 

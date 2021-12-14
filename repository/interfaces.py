@@ -22,6 +22,9 @@ class ICardRepository(ABC):
     @abstractmethod
     def remove_card_by_pan(self, pan: PAN): pass
 
+    @abstractmethod
+    def save(self, card: Card): pass
+
 
 class IBankRepository(ABC):
     """Repository interface for banks"""
@@ -37,6 +40,9 @@ class IBankRepository(ABC):
 
     @abstractmethod
     def insert_bank(self, bank: Bank): pass
+
+    @abstractmethod
+    def save(self, bank: Bank): ...
 
 
 class IAccountRepository(ABC):
@@ -54,6 +60,9 @@ class IAccountRepository(ABC):
     @abstractmethod
     def insert_account(self, account: Account): pass
 
+    @abstractmethod
+    def save(self, account: Account): ...
+
 
 class IMemoryStorage(ABC):
     """Memory-based storage interface"""
@@ -70,10 +79,13 @@ class IMemoryStorage(ABC):
             return None
         return self.__storage[key]
 
-    def _put(self, key: typing.Any, value) -> bool:
-        if key not in self.__storage.keys():
+    def _put(self, key: typing.Any, value, force: bool = False) -> bool:
+        if force:
             self.__storage[key] = value
-            return True
+        else:
+            if key not in self.__storage.keys():
+                self.__storage[key] = value
+                return True
         return False
 
     def _remove(self, key: typing.Any = None) -> bool:

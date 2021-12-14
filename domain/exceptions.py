@@ -14,6 +14,9 @@ class MoneyError:
 
 
 class BankError:
+    class BankAlreadyExist(ParentException):
+        txt = "Bank with the provided name already exists"
+
     class NotAccountIdType(ParentException):
         txt: str = "Should be <AccountID> type"
 

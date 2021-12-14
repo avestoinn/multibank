@@ -20,6 +20,9 @@ class MemoryAccountRepository(IAccountRepository, IMemoryStorage):
     def insert_account(self, account: Account):
         return self._put(account.id, account)
 
+    def save(self, account: Account):
+        return self._put(account.id, account, force=True)
+
 
 class MemoryBankRepository(IBankRepository, IMemoryStorage):
     def insert_bank(self, bank: Bank):
@@ -33,3 +36,6 @@ class MemoryBankRepository(IBankRepository, IMemoryStorage):
 
     def get_bank_by_name(self, name: str):
         return self._get(name)
+
+    def save(self, bank: Bank):
+        return self._put(bank.name, bank, force=True)
