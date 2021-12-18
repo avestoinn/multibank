@@ -1,10 +1,16 @@
 from dataclasses import dataclass
 from pydantic.fields import Field
+from pydantic import BaseModel
 import datetime
 
 
-@dataclass(kw_only=True, frozen=True)
+class Config:
+    arbitrary_types_allowed = True
+
+
+@dataclass(kw_only=True)
 class Command:
     """Command base (abstract) class to be inherited by children"""
 
-    invoked_on: datetime.datetime = Field(default_factory=datetime.datetime.now)
+    def __post_init__(self):
+        self.invoked_on = datetime.datetime.now()

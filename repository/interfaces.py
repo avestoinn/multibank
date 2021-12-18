@@ -52,7 +52,7 @@ class IAccountRepository(ABC):
     def get_accounts(self): pass
 
     @abstractmethod
-    def get_account_by_id(self, account_id: AccountID): pass
+    def get_account_by_id(self, account_id: AccountID) -> Account: pass
 
     @abstractmethod
     def remove_account_by_id(self, account_id: AccountID): pass

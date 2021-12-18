@@ -1,6 +1,6 @@
 import datetime
 import random
-
+import string
 
 from domain.exceptions import CardError
 
@@ -116,3 +116,19 @@ class CV2(int):
 
     def __str__(self):
         return f"{self.__value}"
+
+
+class PIN:
+    """Card's PIN code"""
+    __value: str
+
+    @staticmethod
+    def generate():
+        seq = string.digits
+        v = ""
+        for x in range(0, 4):
+            v += random.choice(seq)
+        return v
+
+    def __init__(self, pin: str = None):
+        self.__value = pin if pin and len(pin) == 4 else self.generate()

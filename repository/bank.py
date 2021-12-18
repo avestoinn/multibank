@@ -11,7 +11,7 @@ class MemoryAccountRepository(IAccountRepository, IMemoryStorage):
     def get_accounts(self):
         return self._get_all()
 
-    def get_account_by_id(self, account_id: AccountID):
+    def get_account_by_id(self, account_id: AccountID) -> Account:
         return self._get(account_id)
 
     def remove_account_by_id(self, account_id: AccountID):

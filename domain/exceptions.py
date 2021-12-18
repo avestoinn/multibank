@@ -14,6 +14,9 @@ class MoneyError:
 
 
 class BankError:
+    class BankNotExist(ParentException):
+        txt = "Bank with the provided name does not exist"
+
     class BankAlreadyExist(ParentException):
         txt = "Bank with the provided name already exists"
 

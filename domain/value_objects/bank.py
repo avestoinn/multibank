@@ -19,9 +19,9 @@ class AccountID:
         return self.__value
 
     def __eq__(self, other):
-        if not isinstance(other, AccountID):
+        if not isinstance(other, AccountID) or not isinstance(other, str):
             return False
-        return self.__value == other.__value
+        return self.__value == other.__value if isinstance(other, AccountID) else self.__value == other
 
     def __init__(self):
         v = ""
